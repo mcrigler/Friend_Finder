@@ -15,7 +15,7 @@ Homework Week 13 - Friend Finder
 
 ![Example API list of all page](/images/demo4.png)
 	
-*Friend Finder* is deployed to Heroku. Please check it out [here](https://fierce-fortress-60021.herokuapp.com/).
+*Friend "Candidate" Finder* is deployed to Heroku. Please check it out [here]( https://powerful-ravine-59086.herokuapp.com/).
 
 ## Installation
 
