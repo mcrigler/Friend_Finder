@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta name="description" content="Week 13 Homework - Friend Finder">
+	    <meta name="keywords" content="Marya, coding, bootcamp, part-time">
+	    <meta name="author" content="Marya Crigler">
+		
+		<!-- Font Awesome Icons -->
+	  	<script src="https://use.fontawesome.com/b38c8ed4c7.js"></script>
+
+		<!--Import Google Icon Font-->
+	    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+		
+		<!-- Linkk to jQuery -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<!-- Compiled and minified Materialize JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+
+		<script src="https://unpkg.com/jquery"></script>
+  	    <script src="https://surveyjs.azureedge.net/0.12.19/survey.jquery.js"></script>
+   		<link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    	<link rel="stylesheet" href="./index.css">
+		
+		<title>Finder Survey</title>
+
+	</head>
+	<body>
+		<header>
+			<nav>
+				<div class="nav-wrapper blue accent-2">
+					<h1>Democrats 2020 -- Find your perfect candidate! </h1>
+				</div>
+			</nav>
+		</header>
+		
+							<!-- Survey Questions -->
+								<div id="surveyElement"></div>
+							    <div id="surveyResult"></div>
+							   <!-- <script src="./index.js"></script>-->
+
+
+							    <!-- Modal Dialog Displaying Closest Match -->
+		<div id="modal1" class="modal">
+			<div class="modal-content">
+				<h4>Candidate Match</h4>
+				<div class="modal-footer">
+				<a href="/survey" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+				</div>
+				<div class="divider"></div>
+				<h5 id="userMatch"></h5>
+				<img id="userMatchImage" class="materialboxed" width="500" src="">
+			</div>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				//$('select').material_select();
+				/*$('.modal').modal({
+					dismissible: false, // Modal can be dismissed by clicking outside of the modal
+					opacity: .5, // Opacity of modal background
+					inDuration: 300, // Transition in duration
+					outDuration: 200, // Transition out duration
+					startingTop: '4%', // Starting top style attribute
+					endingTop: '10%' // Ending top style attribute
+				});*/
+
+Survey.Survey.cssType = "bootstrap";
+Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
+
+window.survey = new Survey.Model({questions: [{type:"text",name:"userName",title:"What is your name"},{type:"text",name:"photo", title:"Add a link to your photo"},
+{ type: "matrix", name: "Quality", title: "Please indicate if you agree or disagree with the following statements",
+   columns: [{ value: 1, text: "Strongly Disagree" }, 
+              { value: 2, text: "Disagree" }, 
+              { value: 3, text: "Neutral" }, 
+              { value: 4, text: "Agree" }, 
+              { value: 5, text: "Strongly Agree" }],
+    rows: [{ value: "Q1", text: "The best candidate would be an fresh face and not currently well known" }, 
+           { value: "Q2", text: "With the right candidate, America is ready for a woman president" },
+           { value: "Q3", text: "Political experience is a necessary job requirement" }, 
+           { value: "Q4", text: "Good name recognition is important" }, 
+           { value: "Q5", text: "The candidate should be an strong advocate for change" }, 
+           { value: "Q6", text: "The candidate should focus on the Democratic base" }, 
+           { value: "Q7", text: "The candidate should have broad appeal to Independants and moderate Republicans." }, 
+           { value: "Q8", text: "The number one priority should be restoring the middle class" }, 
+           { value: "Q9", text: "The number one priority should be healthcare" }, 
+           { value: "Q10", text: "A blue collar background is better than an ivy league education" }]}
+]});
+survey.onComplete.add(function(result) {
+  var stuff = result.data
+  console.log("Your results are " + stuff.Quality.Q1)
+
+  var userInput = {
+					name: stuff.userName,
+					photo: stuff.photo,
+					scores:[stuff.Quality.Q1,
+						stuff.Quality.Q2,
+						stuff.Quality.Q3,
+						stuff.Quality.Q4,
+						stuff.Quality.Q5,
+						stuff.Quality.Q6,
+						stuff.Quality.Q7,
+						stuff.Quality.Q8,
+						stuff.Quality.Q9,
+						stuff.Quality.Q10
+						]		
+						};
+
+	console.log('userInput = ' + JSON.parse(userInput));
+  
+	document.querySelector('#surveyResult').innerHTML = "result: " + JSON.stringify(result.data);
+});
+
+
+$("#surveyElement").Survey({model:survey});
+
+
+
+
+
+			});
+			/* Activate submit button
+			$('#submitButton').on('click', function(event) {
+				event.preventDefault();
+				// Gather user inputs
+				var userInput = {
+					name: $('#userName').val().trim(),
+					photo: $('#userPhoto').val().trim(),
+					scores:[
+						$('#question1').val().trim(),
+						$('#question2').val().trim(),
+						$('#question3').val().trim(),
+						$('#question4').val().trim(),
+						$('#question5').val().trim(),
+						$('#question6').val().trim(),
+						$('#question7').val().trim(),
+						$('#question8').val().trim(),
+						$('#question9').val().trim(),
+						$('#question10').val().trim()
+					]
+				};
+				console.log('userInput = ' + JSON.stringify(userInput));
+				// Add user inputs to friends list
+				$.post('/api/friend', userInput)
+	      		.done(function(data) {
+	      			console.log('response = ' + JSON.stringify(data));
+	      			// Set the name and image values of friend match
+	      			$('#userMatch').html(data.matchName);
+			    	$("#userMatchImage").attr("src", data.matchImage);
+			    	// Pop open the modal dialog
+	      			$('#modal1').modal('open');
+	      		});
+			});*/
+		</script>
+							
+	</body>
+</html>

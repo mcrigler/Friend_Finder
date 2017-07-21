@@ -1,0 +1,30 @@
+
+.btn-green {
+  background-color: #1ab394;
+  color: #fff;
+  border-radius: 3px;
+}
+
+.btn-green:hover, .btn-green:focus {
+    background-color: #18a689;
+    color: #fff;
+}
+
+.panel-footer {
+    text-align: right;
+    background-color: #fff;
+}
+
+nav {
+    color: #fff;
+    background-color: #0a8ff8;
+    width: 100%;
+    height: 56px;
+    line-height: 56px;
+    font-size: 2em;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
